@@ -1,0 +1,52 @@
+<div class="flex flex-col gap-2">
+	<div class="flex items-center px-2 gap-3 text-gray-200 bg-zinc-800">
+		<app-darkmode />
+
+		<div class="ml-auto flex items-center">
+			<button
+				type="button"
+				(click)="scanQrCode()"
+				class="flex items-center gap-2 p-2 bg-emerald-800 text-amber-50 hover:bg-emerald-600 transition-colors cursor-pointer"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="32"
+					height="32"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+				</svg>
+				Scan QR code from clipboard
+			</button>
+		</div>
+	</div>
+
+	<div class="flex mx-2 gap-2 items-center p-1 border border-gray-500 dark:text-zinc-200">
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<circle cx="11" cy="11" r="8"></circle>
+			<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+		</svg>
+		<input type="text" [(ngModel)]="searchText" placeholder="Search by name..." class="w-full outline-0 dark:text-zinc-200" />
+	</div>
+
+	<div>
+		@for (item of totpListFiltered(); track $index) {
+			<app-totp-entry [entry]="item" />
+		}
+	</div>
+</div>

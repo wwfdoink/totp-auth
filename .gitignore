@@ -1,0 +1,8 @@
+.vscode
+node_modules
+dist
+out
+.DS_Store
+*.log*
+electron.vite.config.*.mjs
+/db.json

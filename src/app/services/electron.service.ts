@@ -11,6 +11,7 @@ declare global {
 			setDarkMode: (darkMode: boolean) => Promise<boolean>;
 			totpList: () => Promise<TOTPEntry[]>;
 			removeTotpEntry: (id: string) => Promise<boolean>;
+			unlock: (password: string) => Promise<boolean>;
 		};
 	}
 }
@@ -20,6 +21,10 @@ declare global {
 })
 export class ElectronService {
 	onDbChange = new Subject<number>();
+
+	unlock(password: string) {
+		return window.api.unlock(password);
+	}
 
 	scan() {
 		return window.api.scan();

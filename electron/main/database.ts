@@ -6,7 +6,6 @@ const INITIAL_DB = {
 	settings: {
 		darkMode: false,
 	},
-	encryption: {},
 } as DBSchema;
 
 class DB {
@@ -32,7 +31,7 @@ class DB {
 	}
 
 	getTotpList() {
-		return this.data.totpList;
+		return structuredClone(this.data.totpList);
 	}
 
 	getDarkMode() {

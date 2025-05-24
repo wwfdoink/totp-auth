@@ -1,12 +1,20 @@
 import { ipcMain, clipboard } from 'electron';
 import { nativeTheme } from 'electron/main';
-import { database } from './database';
 import jsqr from 'jsqr';
+import { encrypt, decrypt } from './encrypter';
+import { database } from './database';
 import { urlToTotpEntry } from './utils';
 
+let password: string | undefined = undefined;
+
 export const registerIpcHandlers = () => {
-	ipcMain.handle('totpList', () => {
-		return database.getTotpList();
+	ipcMain.handle('totpList', async () => {
+		return await Promise.all(
+			database.getTotpList().map(async (entry) => ({
+				...entry,
+				secret: await decrypt(entry.secret, password!),
+			})),
+		);
 	});
 
 	ipcMain.handle('darkMode', () => {
@@ -44,7 +52,23 @@ export const registerIpcHandlers = () => {
 		if (!totpEntry) {
 			return false;
 		}
-
+		totpEntry.secret = encrypt(totpEntry.secret, password!);
 		return await database.addTotpEntry(totpEntry);
+	});
+
+	ipcMain.handle('unlock', async (_event, unlockPassword: string) => {
+		const totpList = database.getTotpList();
+		if (totpList.length < 1) {
+			password = unlockPassword;
+			return true;
+		}
+
+		try {
+			await decrypt(totpList[0].secret, unlockPassword!);
+			password = unlockPassword;
+		} catch (error) {
+			return false;
+		}
+		return true;
 	});
 };

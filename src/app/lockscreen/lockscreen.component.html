@@ -1,0 +1,23 @@
+<div class="flex h-[70vh] items-center justify-center">
+	<div class="flex w-screen flex-col gap-2">
+		<div class="mx-2 mb-2 gap-2 text-xl font-light text-center p-1 dark:text-zinc-200">Enter your unlock code</div>
+
+		<form (ngSubmit)="unlock()" class="flex flex-col gap-2">
+			<div class="flex mx-2 gap-2 items-center p-1 border border-gray-500 dark:text-zinc-200">
+				<input
+					type="password"
+					[(ngModel)]="password"
+					placeholder="Enter your unlock code..."
+					class="w-full outline-0 dark:text-zinc-200"
+					autofocus
+				/>
+			</div>
+			<button
+				type="submit"
+				class="text-center mx-2 gap-2 p-2 bg-emerald-800 text-amber-50 hover:bg-emerald-600 transition-colors cursor-pointer"
+			>
+				Unlock
+			</button>
+		</form>
+	</div>
+</div>

@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
 			return entry.username.toLowerCase().includes(text) || entry.issuer.toLowerCase().includes(text);
 		}),
 	);
+	readonly noRegisteredEntry = computed(() => this.totpList().length < 1);
+
 	readonly searchText = model<string>('');
 	readonly onDbChange = toSignal(this.electronService.onDbChange);
 

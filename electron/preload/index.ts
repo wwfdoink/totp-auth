@@ -9,4 +9,5 @@ contextBridge.exposeInMainWorld('api', {
 	setSettings: (newSettings: SettingsEntry) => ipcRenderer.invoke('setSettings', newSettings),
 	removeTotpEntry: (id: string) => ipcRenderer.invoke('removeTotpEntry', id),
 	settings: () => ipcRenderer.send('settings'),
+	unlock: (password: string) => ipcRenderer.invoke('unlock', password),
 });

@@ -1,4 +1,8 @@
 <div class="relative">
-	<app-home />
+	@if (isUnlocked()) {
+		<app-home />
+	} @else {
+		<app-lockscreen />
+	}
 	<app-notifier />
 </div>

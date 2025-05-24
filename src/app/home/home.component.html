@@ -26,27 +26,31 @@
 		</div>
 	</div>
 
-	<div class="flex mx-2 gap-2 items-center p-1 border border-gray-500 dark:text-zinc-200">
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="24"
-			height="24"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-		>
-			<circle cx="11" cy="11" r="8"></circle>
-			<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-		</svg>
-		<input type="text" [(ngModel)]="searchText" placeholder="Search by name..." class="w-full outline-0 dark:text-zinc-200" />
-	</div>
+	@if (noRegisteredEntry()) {
+		<div class="flex items-center justify-center h-32 text-gray-500">There is no registered TOTP entries yet...</div>
+	} @else {
+		<div class="flex mx-2 gap-2 items-center p-1 border border-gray-500 dark:text-zinc-200">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<circle cx="11" cy="11" r="8"></circle>
+				<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+			</svg>
+			<input type="text" [(ngModel)]="searchText" placeholder="Search by name..." class="w-full outline-0 dark:text-zinc-200" />
+		</div>
 
-	<div>
-		@for (item of totpListFiltered(); track $index) {
-			<app-totp-entry [entry]="item" />
-		}
-	</div>
+		<div>
+			@for (item of totpListFiltered(); track $index) {
+				<app-totp-entry [entry]="item" />
+			}
+		</div>
+	}
 </div>
